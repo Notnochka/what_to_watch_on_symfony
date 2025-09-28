@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+
 #[ORM\Entity(repositoryClass: FilmRepository::class)]
 #[ORM\Table(name: 'films', indexes: [new ORM\Index(name: 'is_promo_idx', columns: ['isPromo'])])]
 class Film
@@ -22,6 +23,9 @@ class Film
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['film:list', 'film:detail'])]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -272,7 +276,6 @@ class Film
 
         return $this;
     }
-
     public function getVideoLink() : ?string
     {
         return $this->videoLink;
@@ -300,6 +303,7 @@ class Film
     }
 
     public function getIsPromo() : ?bool
+    public function isPromo() : ?bool
     {
         return $this->isPromo;
     }

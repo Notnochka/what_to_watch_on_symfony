@@ -9,6 +9,10 @@ use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
 class DirectorFixture extends Fixture implements OrderedFixtureInterface
+use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
+
+class DirectorFixture extends Fixture
 {
     public function load(ObjectManager $manager): void
     {

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Services\Film\FilmService;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,5 +33,15 @@ final class PromoController extends AbstractController
         } catch (InvalidArgumentException $e) {
             return $this->json(['message' => $e->getMessage()], 404);
         }
+    #[Route('', name: 'app_promo', methods: ['GET'])]
+    public function index(): Response
+    {
+        return $this->json([]);
+    }
+
+    #[Route('/{id}', name: 'app_promo_create', methods: ['GET'])]
+    public function new(): Response
+    {
+        return $this->json([]);
     }
 }

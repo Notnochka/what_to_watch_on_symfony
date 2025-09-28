@@ -13,6 +13,19 @@ use Faker\Factory;
 
 class FilmFixture extends Fixture implements OrderedFixtureInterface
 {
+use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
+
+class FilmFixture extends Fixture
+{
+    public function getDependencies() : array
+    {
+        return [
+            GenreFixture::class,
+            ActorFixture::class,
+            DirectorFixture::class,
+        ];
+    }
     public function load(ObjectManager $manager) : void
     {
         $faker =

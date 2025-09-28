@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Controller;
-
 use App\Services\Genre\GenreService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -42,5 +42,15 @@ final class GenreController extends AbstractController
         $this->genreService->updateGenreName($genre, $newName);
 
         return $this->json(['message' => "Успешно изменено имя жанра"]);
+    #[Route('', name: 'app_genre', methods: ['GET'])]
+    public function index(): Response
+    {
+        return $this->json([]);
+    }
+
+    #[Route('', name: 'app_update_genre', methods: ['PATCH'])]
+    public function update(): Response
+    {
+        return $this->json([]);
     }
 }

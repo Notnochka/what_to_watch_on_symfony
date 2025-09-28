@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\FavoriteFilm;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,7 +16,24 @@ class FavoriteFilmRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, FavoriteFilm::class);
     }
+    public function findFavoritesByUser(User $user): array
+    {
+        return $this->findBy(['user' => $user]);
+    }
 
+    public function save(FavoriteFilm $favoriteFilm): void
+    {
+        $em = $this->getEntityManager();
+        $em->persist($favoriteFilm);
+        $em->flush();
+    }
+
+    public function remove(FavoriteFilm $favoriteFilm): void
+    {
+        $em = $this->getEntityManager();
+        $em->remove($favoriteFilm);
+        $em->flush();
+    }
     //    /**
     //     * @return FavoriteFilm[] Returns an array of FavoriteFilm objects
     //     */

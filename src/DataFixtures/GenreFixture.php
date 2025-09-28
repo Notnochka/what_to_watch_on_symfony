@@ -4,6 +4,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Genre;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Persistence\ObjectManager;
+
+class GenreFixture extends Fixture implements OrderedFixtureInterface
 use Doctrine\Persistence\ObjectManager;
 
 class GenreFixture extends Fixture
@@ -19,5 +24,10 @@ class GenreFixture extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function getOrder() : int
+    {
+        return 2;
     }
 }

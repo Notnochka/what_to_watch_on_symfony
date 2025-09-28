@@ -7,6 +7,12 @@ use App\Entity\Director;
 use App\Entity\Film;
 use App\Entity\Genre;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
+
+class FilmFixture extends Fixture implements OrderedFixtureInterface
+{
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
@@ -20,7 +26,6 @@ class FilmFixture extends Fixture
             DirectorFixture::class,
         ];
     }
-
     public function load(ObjectManager $manager) : void
     {
         $faker =
@@ -63,5 +68,10 @@ class FilmFixture extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function getOrder() : int
+    {
+        return 4;
     }
 }

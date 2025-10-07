@@ -19,3 +19,8 @@
 /assets/vendor/
 ###< symfony/asset-mapper ###
 /.idea
+/fill_images.php
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

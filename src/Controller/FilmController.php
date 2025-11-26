@@ -8,6 +8,7 @@ use App\Entity\Film;
 use App\Mapper\Film\FilmMapper;
 use App\Services\Film\FilmService;
 use DateTime;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,13 +22,13 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/films')]
 final class FilmController extends AbstractController
 {
-
     private FilmService $filmService;
 
     public function __construct(FilmService $filmService)
     {
         $this->filmService = $filmService;
     }
+
     /**
      * Получить список фильмов (с пагинацией).
      *
@@ -55,26 +56,6 @@ final class FilmController extends AbstractController
         $result = $this->filmService->listFilms($page, $limit, $genres, $status, $orderBy, $orderDirection);
 
         return $this->json($result);
-        return $this->json([
-            'data' => [
-                [
-                    'id' => 1,
-                    'name' => 'The Grand Budapest Hotel',
-                    'preview_image' => 'img/the-grand-budapest-hotel.jpg',
-                ],
-                [
-                    'id' => 2,
-                    'name' => 'The Film',
-                    'preview_image' => 'img/the-film.jpg',
-                ],
-            ],
-            'current_page' => 1,
-            'first_page_url' => 'http://localhost:8000/api/films?page=1',
-            'next_page_url' => null,
-            'prev_page_url' => null,
-            'per_page' => 6,
-            'total' => 2,
-            ]);
     }
 
     /**
@@ -96,17 +77,11 @@ final class FilmController extends AbstractController
 
     /**
      * Добавление фильма в бд
-        return $this->json(['id' => $id]);
-    }
-
-    /**
-     * Создать новый фильм.
      *
      * POST /films
      *
      * @return JsonResponse JSON с данными созданного фильма
-     * @throws \Exception
-
+     * @throws Exception
      */
     #[Route('', name: 'app_film_create', methods: ['POST'])]
     public function new(Request $request) : JsonResponse
@@ -150,9 +125,6 @@ final class FilmController extends AbstractController
         $film = $this->filmService->updateFilm($id, $dto);
 
         return $this->json(['message' => 'Фильм обновлён', 'data' => $film]);
-    public function update(int $id) : JsonResponse
-    {
-        return $this->json(['id' => $id]);
     }
 
     /**
@@ -175,6 +147,5 @@ final class FilmController extends AbstractController
             200,
             [],
             ['groups' => ['film:list']]);
-        return $this->json(['id' => $id]);
     }
 }

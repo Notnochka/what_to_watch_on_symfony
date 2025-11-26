@@ -9,9 +9,6 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class GenreFixture extends Fixture implements OrderedFixtureInterface
-use Doctrine\Persistence\ObjectManager;
-
-class GenreFixture extends Fixture
 {
     public function load(ObjectManager $manager): void
     {

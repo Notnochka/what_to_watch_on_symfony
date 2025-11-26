@@ -9,10 +9,6 @@ use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
 class ActorFixture extends Fixture implements OrderedFixtureInterface
-use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
-
-class ActorFixture extends Fixture
 {
     public function load(ObjectManager $manager): void
     {

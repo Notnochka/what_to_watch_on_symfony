@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use App\Mapper\Favorite\FavoriteMapper;
 use App\Services\FavoriteFilm\FavoriteFilmService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +28,7 @@ final class FavoriteController extends AbstractController
     #[Route('/films/{id}/favorite', name: 'app_add_favorite', methods: ['POST'])]
     public function new(int $id): Response
     {
-        $userId = 1;
+        $userId = $this->getUser()->getId();
 
         $this->favoriteService->addToFavorite($userId, $id);
 
@@ -39,28 +40,12 @@ final class FavoriteController extends AbstractController
     #[Route('/films/{id}/favorite', name: 'app_delete_favorite', methods: ['DELETE'])]
     public function delete(int $id): Response
     {
-        $userId = 1;
+        $userId = $this->getUser()->getId();
 
         $this->favoriteService->removeFromFavorite($userId, $id);
 
         return $this->json([
             'message' => 'Фильм удалён из избранного',
         ]);
-    #[Route('/favorite', name: 'app_favorite', methods: ['GET'])]
-    public function index(): Response
-    {
-        return $this->json([]);
-    }
-
-    #[Route('/films/{id}/favorite', name: 'app_add_favorite', methods: ['POST'])]
-    public function new(): Response
-    {
-        return $this->json([]);
-    }
-
-    #[Route('/films/{id}/favorite', name: 'app_delete_favorite', methods: ['DELETE'])]
-    public function delete(): Response
-    {
-        return $this->json([]);
     }
 }

@@ -77,39 +77,6 @@ function Main({genres}) {
     return <div>Loading films...</div>;
   }
 
-function Main(props) {
-  const [films, setFilms] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { name, genre, year } = props;
-
-  useEffect(() => {
-    const fetchFilms = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/api/films');
-        if (!response.ok) {
-          throw new Error('Failed to fetch films');
-        }
-        const data = await response.json();
-        setFilms(data.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchFilms();
-  }, []);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
     <React.Fragment>
       <div className="visually-hidden">
@@ -151,6 +118,7 @@ function Main(props) {
             <div className="film-card__poster">
               <img src={promoFilm?.posterImage} alt={`${promoFilm?.name} poster`} width="218" height="327" />
             </div>
+
             <div className="film-card__desc">
               <h2 className="film-card__title">{promoFilm?.name}</h2>
               <p className="film-card__meta">
@@ -216,20 +184,10 @@ function Main(props) {
                 </a>
               </li>
             ))}
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            {/* Остальные жанры */}
           </ul>
 
           <div className="catalog__films-list">
             <FilmList films={films} />
-
-          </div>
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-
           </div>
 
           {films.length < total && (
@@ -270,11 +228,6 @@ Main.propTypes = {
       name: PropTypes.string.isRequired,
     })
   ).isRequired,
-
-  name: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
-
 };
 
 export default Main;
